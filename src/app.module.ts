@@ -3,6 +3,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PlanetsModule } from './planets/planets.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PlanetsModule } from './planets/planets.module';
       autoSchemaFile: true,
     }),
     PlanetsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
