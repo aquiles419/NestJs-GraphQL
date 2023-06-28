@@ -9,5 +9,5 @@ export class Planet {
   mass: string;
 
   @Field()
-  hasStation: string;
+  hasStation: boolean;
 }
