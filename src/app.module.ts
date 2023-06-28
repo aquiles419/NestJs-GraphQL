@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PlanetsModule } from './planets/planets.module';
 import { UsersModule } from './users/users.module';
 import { StationsModule } from './stations/stations.module';
+import { RechargesModule } from './recharges/recharges.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StationsModule } from './stations/stations.module';
     PlanetsModule,
     UsersModule,
     StationsModule,
+    RechargesModule,
   ],
   controllers: [],
   providers: [],
