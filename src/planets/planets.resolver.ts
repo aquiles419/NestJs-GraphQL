@@ -15,9 +15,9 @@ export class PlanetsResolver {
     }
 
     return response.map((planet: any) => ({
-      id: planet.pl_name,
       name: planet.pl_name,
-      gravity: planet.pl_bmassj,
+      mass: planet.pl_bmassj,
+      hasStation: planet.pl_name,
     }));
   }
 }
