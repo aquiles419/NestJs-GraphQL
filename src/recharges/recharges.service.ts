@@ -1,12 +1,14 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Recharge, Station } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma/prisma.service';
-
-import { CronJob } from 'cron';
+import { RechargeCronService } from 'src/utils/recharge-cron.service';
 
 @Injectable()
 export class RechargesService implements OnModuleInit {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private rechargeCronService: RechargeCronService,
+  ) {}
 
   async createRecharges(data: {
     startDateTime: Date;
@@ -101,23 +103,6 @@ export class RechargesService implements OnModuleInit {
     });
   }
 
-  onModuleInit() {
-    this.startCronJob();
-  }
-
-  startCronJob() {
-    // Define a expressão cron para rodar a cada minuto
-    const cronExpression = '* * * * *';
-
-    // Cria o cron job
-    const cronJob = new CronJob(cronExpression, async () => {
-      await this.checkRechargeStatus();
-    });
-
-    // Inicia o cron job
-    cronJob.start();
-  }
-
   async checkRechargeStatus() {
     // Obtém todas as recargas ativas (ainda em andamento)
     const activeRecharges = await this.prisma.recharge.findMany({
@@ -141,5 +126,9 @@ export class RechargesService implements OnModuleInit {
         });
       }
     }
+  }
+
+  onModuleInit() {
+    this.rechargeCronService.startCronJob();
   }
 }

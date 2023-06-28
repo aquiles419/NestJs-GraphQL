@@ -10,7 +10,7 @@ services:
       - .:/home/node/app
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
-  
+
   db:
     image: bitnami/mongodb:5.0.17
     volumes:
