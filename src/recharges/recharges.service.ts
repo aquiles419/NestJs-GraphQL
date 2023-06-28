@@ -85,22 +85,20 @@ export class RechargesService implements OnModuleInit {
       where: { id: stationId },
     });
 
-    // Verificar se a data de término da recarga é posterior à data atual
-    if (finishDateTime > new Date()) {
-      // Atualizar o status da estação para "em recarga"
-      await this.prisma.station.update({
-        where: { id: stationId },
-        data: { hasStation: true },
-      });
-    } else {
-      // Atualizar o status da estação para "sem recarga"
-      await this.prisma.station.update({
-        where: { id: stationId },
-        data: { hasStation: false },
-      });
-    }
+    // Atualizar o status da estação para "BUSY"
+    await this.updateStationStatus(stationId, 'BUSY');
 
     return { station, recharge };
+  }
+
+  async updateStationStatus(
+    stationId: string,
+    status: string,
+  ): Promise<Station> {
+    return this.prisma.station.update({
+      where: { id: stationId },
+      data: { stationStatus: status },
+    });
   }
 
   onModuleInit() {
@@ -139,7 +137,7 @@ export class RechargesService implements OnModuleInit {
       if (station) {
         await this.prisma.station.update({
           where: { id: station.id },
-          data: { hasStation: false },
+          data: { stationStatus: 'AVAILABLE' },
         });
       }
     }

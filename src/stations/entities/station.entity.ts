@@ -12,6 +12,9 @@ export class Station {
   hasStation: boolean;
 
   @Field()
+  stationStatus: string;
+
+  @Field()
   createdAt: Date;
 
   @Field()

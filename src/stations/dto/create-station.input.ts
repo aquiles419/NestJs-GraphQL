@@ -1,7 +1,13 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateStationInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  planetName: string;
+
+  @Field()
+  hasStation: boolean;
+
+  @Field({ nullable: true })
+  stationStatus?: string;
 }
