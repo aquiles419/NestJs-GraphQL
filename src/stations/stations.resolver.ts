@@ -37,4 +37,31 @@ export class StationsResolver {
   async deleteStation(@Args('id') id: string): Promise<Station | null> {
     return this.stationService.deleteStation(id);
   }
+
+  @Mutation(() => Station)
+  async recharge(
+    @Args('stationId') stationId: string,
+    @Args('finishDateTime') finishDateTime: Date,
+    @Args('userId') user: string,
+    // @Context() context: any,
+  ): Promise<Station> {
+    // Verificar se o usuário já possui uma recarga em andamento
+    // const userId = context.user.id; // Obter o ID do usuário autenticado (exemplo)
+    const userId = user; // Obter o ID do usuário autenticado (exemplo)
+    const existingRecharge = await this.stationService.getOngoingRechargeByUser(
+      userId,
+    );
+    if (existingRecharge) {
+      throw new Error('User already has an ongoing recharge.');
+    }
+
+    // Realizar a recarga na estação
+    const recharge = await this.stationService.recharge(
+      stationId,
+      finishDateTime,
+      userId,
+    );
+
+    return recharge.station;
+  }
 }

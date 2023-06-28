@@ -11,17 +11,32 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @map("_id")
+  id        String     @id @default(uuid()) @map("_id")
   name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  email     String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Recharge  Recharge[]
 }
 
 model Station {
-  id         String   @id @default(uuid()) @map("_id")
+  id         String     @id @default(uuid()) @map("_id")
   planetName String
   hasStation Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Recharge   Recharge[]
+}
+
+model Recharge {
+  id             String   @id @default(uuid()) @map("_id")
+  startDateTime  DateTime @default(now())
+  finishDateTime DateTime
+  userId         String
+  stationId      String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id])
+  station Station @relation(fields: [stationId], references: [id])
 }
