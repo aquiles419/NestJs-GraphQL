@@ -22,7 +22,7 @@ export class StationsService {
 
   async updateStation(
     id: string,
-    data: { planetName?: string; hasStation?: boolean },
+    data: { name?: string; planetName?: string; hasStation?: boolean },
   ): Promise<Station | null> {
     return this.prisma.station.update({ where: { id }, data });
   }

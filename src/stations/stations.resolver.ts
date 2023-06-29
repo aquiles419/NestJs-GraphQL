@@ -31,10 +31,15 @@ export class StationsResolver {
   @Mutation(() => Station, { nullable: true })
   async updateStation(
     @Args('id') id: string,
+    @Args('name') name: string,
     @Args('planetName') planetName: string,
     @Args('hasStation') hasStation: boolean,
   ): Promise<Station | null> {
-    return this.stationService.updateStation(id, { planetName, hasStation });
+    return this.stationService.updateStation(id, {
+      name,
+      planetName,
+      hasStation,
+    });
   }
 
   @Mutation(() => Station, { nullable: true })
