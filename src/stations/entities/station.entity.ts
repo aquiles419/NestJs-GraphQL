@@ -6,6 +6,9 @@ export class Station {
   id: string;
 
   @Field()
+  name: string;
+
+  @Field()
   planetName: string;
 
   @Field()

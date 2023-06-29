@@ -8,10 +8,14 @@ export class StationsResolver {
 
   @Mutation(() => Station)
   async installStation(
+    @Args('name') name: string,
     @Args('planetName') planetName: string,
-    @Args('hasStation') hasStation: boolean,
   ): Promise<Station> {
-    return this.stationService.installStation({ planetName, hasStation });
+    return this.stationService.installStation({
+      name,
+      planetName,
+      hasStation: true,
+    });
   }
 
   @Query(() => [Station])
