@@ -10,6 +10,8 @@ services:
       - .:/home/node/app
     extra_hosts:
       - 'host.docker.internal:172.17.0.1'
+    depends_on:
+      - redis
 
   db:
     image: bitnami/mongodb:5.0.17
@@ -21,6 +23,15 @@ services:
       MONGODB_REPLICA_SET_KEY: 123456
       MONGODB_DATABASE: voltbras
 
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+
 volumes:
   mongodb_data:
+    driver: local
+  redis_data:
     driver: local
