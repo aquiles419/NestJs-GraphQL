@@ -1,6 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { StationsService } from './stations.service';
 import { Station } from './entities/station.entity';
+import { CreateStationInput } from './dto/create-station.input';
+import { UpdateStationInput } from './dto/update-station.input';
 
 @Resolver()
 export class StationsResolver {
@@ -8,9 +10,9 @@ export class StationsResolver {
 
   @Mutation(() => Station)
   async installStation(
-    @Args('name') name: string,
-    @Args('planetName') planetName: string,
+    @Args('input') input: CreateStationInput,
   ): Promise<Station> {
+    const { name, planetName } = input;
     return this.stationService.installStation({
       name,
       planetName,
@@ -30,11 +32,9 @@ export class StationsResolver {
 
   @Mutation(() => Station, { nullable: true })
   async updateStation(
-    @Args('id') id: string,
-    @Args('name') name: string,
-    @Args('planetName') planetName: string,
-    @Args('hasStation') hasStation: boolean,
+    @Args('input') input: UpdateStationInput,
   ): Promise<Station | null> {
+    const { id, name, planetName, hasStation } = input;
     return this.stationService.updateStation(id, {
       name,
       planetName,

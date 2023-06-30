@@ -8,9 +8,6 @@ export class CreateStationInput {
   @Field()
   planetName: string;
 
-  @Field()
-  hasStation: boolean;
-
   @Field({ nullable: true })
-  stationStatus?: string;
+  hasStation: boolean;
 }
