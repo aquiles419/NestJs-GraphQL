@@ -1,16 +1,13 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateRechargeInput {
+export class RechargeInput {
   @Field()
-  startDateTime: Date;
+  stationId: string;
 
   @Field()
   finishDateTime: Date;
 
   @Field()
   userId: string;
-
-  @Field()
-  stationId: string;
 }

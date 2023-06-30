@@ -10,15 +10,6 @@ export class RechargesService implements OnModuleInit {
     private rechargeCronService: RechargeCronService,
   ) {}
 
-  async createRecharges(data: {
-    startDateTime: Date;
-    finishDateTime: Date;
-    userId: string;
-    stationId: string;
-  }): Promise<Recharge> {
-    return this.prisma.recharge.create({ data });
-  }
-
   async recharges(): Promise<Recharge[]> {
     return this.prisma.recharge.findMany();
   }
