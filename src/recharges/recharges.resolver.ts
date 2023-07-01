@@ -44,16 +44,13 @@ export class RechargesResolver {
   @Mutation(() => Station)
   async recharge(@Args('input') input: RechargeInput): Promise<Station> {
     const { finishDateTime, stationId, userId } = input;
-    // Verificar se o usuário já possui uma recarga em andamento
-    // const userId = context.user.id; // Obter o ID do usuário autenticado (exemplo)
-    const user = userId; // Obter o ID do usuário autenticado (exemplo)
+    const user = userId;
     const existingRecharge =
       await this.rechargeService.getOngoingRechargeByUser(user);
     if (existingRecharge) {
       throw new Error('User already has an ongoing recharge.');
     }
 
-    // Realizar a recarga na estação
     const recharge = await this.rechargeService.recharge(
       stationId,
       finishDateTime,

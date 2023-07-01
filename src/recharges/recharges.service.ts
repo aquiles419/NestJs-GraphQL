@@ -50,7 +50,6 @@ export class RechargesService implements OnModuleInit {
     finishDateTime: Date,
     userId: string,
   ): Promise<{ station: Station; recharge: Recharge }> {
-    // Verificar se a estação já possui uma recarga em andamento
     const existingRecharge = await this.prisma.recharge.findFirst({
       where: {
         stationId,
@@ -63,7 +62,6 @@ export class RechargesService implements OnModuleInit {
       throw new Error('Station already has an ongoing recharge.');
     }
 
-    // Criar a recarga
     const recharge = await this.prisma.recharge.create({
       data: {
         stationId,
@@ -73,12 +71,10 @@ export class RechargesService implements OnModuleInit {
       },
     });
 
-    // Obter a estação pelo ID
     const station = await this.prisma.station.findUnique({
       where: { id: stationId },
     });
 
-    // Atualizar o status da estação para "BUSY"
     await this.updateStationStatus(stationId, 'BUSY');
 
     return { station, recharge };
@@ -95,7 +91,6 @@ export class RechargesService implements OnModuleInit {
   }
 
   async checkRechargeStatus() {
-    // Obtém todas as recargas ativas (ainda em andamento)
     const activeRecharges = await this.prisma.recharge.findMany({
       where: {
         finishDateTime: {
@@ -104,7 +99,6 @@ export class RechargesService implements OnModuleInit {
       },
     });
 
-    // Atualiza o status das estações correspondentes
     for (const recharge of activeRecharges) {
       const station = await this.prisma.station.findUnique({
         where: { id: recharge.stationId },

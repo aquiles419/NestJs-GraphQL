@@ -7,20 +7,17 @@ export class RechargeCronService {
   constructor(private prisma: PrismaService) {}
 
   startCronJob() {
-    // Define a expressão cron para rodar a cada minuto
+    // Define o cron para rodar a cada minuto
     const cronExpression = '* * * * *';
 
-    // Cria o cron job
     const cronJob = new CronJob(cronExpression, async () => {
       await this.checkRechargeStatus();
     });
 
-    // Inicia o cron job
     cronJob.start();
   }
 
   async checkRechargeStatus() {
-    // Obtém todas as recargas ativas (ainda em andamento)
     const activeRecharges = await this.prisma.recharge.findMany({
       where: {
         finishDateTime: {
@@ -29,7 +26,6 @@ export class RechargeCronService {
       },
     });
 
-    // Atualiza o status das estações correspondentes
     for (const recharge of activeRecharges) {
       const station = await this.prisma.station.findUnique({
         where: { id: recharge.stationId },

@@ -7,9 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const stationsService = app.get(RechargeCronService);
 
-  // Iniciar o cron job
-  stationsService.startCronJob();
   dotenv.config();
+  stationsService.startCronJob();
 
   await app.listen(3000);
 }

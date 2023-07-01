@@ -1,5 +1,3 @@
-// redis-cache.service.ts
-
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import redisConfig from './redis.config';
