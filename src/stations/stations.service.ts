@@ -27,8 +27,11 @@ export class StationsService {
     return this.prisma.station.update({ where: { id }, data });
   }
 
-  async deleteStation(id: string): Promise<Station | null> {
-    return this.prisma.station.delete({ where: { id } });
+  async inactivateStation(stationId: string): Promise<Station> {
+    return this.prisma.station.update({
+      where: { id: stationId },
+      data: { stationStatus: 'INACTIVATED' },
+    });
   }
 
   async getOngoingRechargeByUser(userId: string): Promise<Recharge | null> {

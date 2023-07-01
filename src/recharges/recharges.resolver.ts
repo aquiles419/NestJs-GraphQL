@@ -36,11 +36,6 @@ export class RechargesResolver {
     });
   }
 
-  @Mutation(() => Recharge, { nullable: true })
-  async deleteRecharge(@Args('id') id: string): Promise<Recharge | null> {
-    return this.rechargeService.deleteRecharge(id);
-  }
-
   @Mutation(() => Station)
   async recharge(@Args('input') input: RechargeInput): Promise<Station> {
     const { finishDateTime, stationId, userId } = input;

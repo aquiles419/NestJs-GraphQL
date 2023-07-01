@@ -30,10 +30,6 @@ export class RechargesService implements OnModuleInit {
     return this.prisma.recharge.update({ where: { id }, data });
   }
 
-  async deleteRecharge(id: string): Promise<Recharge | null> {
-    return this.prisma.recharge.delete({ where: { id } });
-  }
-
   async getOngoingRechargeByUser(userId: string): Promise<Recharge | null> {
     return this.prisma.recharge.findFirst({
       where: {

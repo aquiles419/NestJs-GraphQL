@@ -43,7 +43,10 @@ export class StationsResolver {
   }
 
   @Mutation(() => Station, { nullable: true })
-  async deleteStation(@Args('id') id: string): Promise<Station | null> {
-    return this.stationService.deleteStation(id);
+  async inactivateStation(
+    @Args('input') input: UpdateStationInput,
+  ): Promise<Station | null> {
+    const { id } = input;
+    return this.stationService.inactivateStation(id);
   }
 }
