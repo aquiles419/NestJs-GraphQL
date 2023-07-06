@@ -49,11 +49,6 @@ $ npx prisma generate
 $ npm run start:dev
 ```
 
-## Evidence Video and curl-Json for Insomnia
-
-https://drive.google.com/drive/folders/1zwiXejjuRVvH5uxBWiOLuN-fx0WbIGBO?usp=sharing
-
 ## Stay in touch
 
-- Author - [Wesley Aquiles]()
-- Linkedin - [Wesley Aquiles](https://www.linkedin.com/in/wesleyaquiles/)
+- Author - [Wesley Aquiles](https://www.linkedin.com/in/wesleyaquiles/)
